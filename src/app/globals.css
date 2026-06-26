@@ -76,3 +76,27 @@ body {
 .animate-scaleUp { animation: scaleUp 0.4s ease-out; }
 .animate-bounce-slow { animation: bounce-slow 3s ease-in-out infinite; }
 .animate-spin-slow { animation: spin-slow 6s linear infinite; }
+
+/* ── Mobile book page-flip animations ──
+   Uses perspective() inline in the transform so overflow:hidden on parent
+   does NOT flatten the 3D effect. Key-remount in React ensures animation
+   restarts fresh on every navigation. */
+@keyframes pageFlipInNext {
+  0%   { transform: perspective(800px) translateX(60%) rotateY(35deg) scale(0.92); opacity: 0.3; }
+  60%  { transform: perspective(800px) translateX(-4%) rotateY(-3deg) scale(1.01); opacity: 1; }
+  100% { transform: perspective(800px) translateX(0)   rotateY(0deg)  scale(1);    opacity: 1; }
+}
+@keyframes pageFlipInPrev {
+  0%   { transform: perspective(800px) translateX(-60%) rotateY(-35deg) scale(0.92); opacity: 0.3; }
+  60%  { transform: perspective(800px) translateX(4%)   rotateY(3deg)   scale(1.01); opacity: 1; }
+  100% { transform: perspective(800px) translateX(0)    rotateY(0deg)   scale(1);    opacity: 1; }
+}
+
+.page-flip-in-next {
+  animation: pageFlipInNext 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  transform-origin: left center;
+}
+.page-flip-in-prev {
+  animation: pageFlipInPrev 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  transform-origin: right center;
+}

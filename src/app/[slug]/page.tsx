@@ -241,11 +241,11 @@ export default function ContributorPage() {
                     </div>
                     <textarea
                       required
-                      rows={6}
+                      rows={5}
                       placeholder="Write something heartwarming, funny, or sweet..."
                       value={messageText}
                       onChange={(e) => setMessageText(e.target.value)}
-                      className="w-full bg-[#fff0ee]/20 border-2 border-[#dcc0c1] rounded-xl p-5 pt-6 font-caveat text-xl text-[#251916] placeholder-[#564243]/50 focus:border-[#a4384c] focus:outline-none resize-none transition-colors"
+                      className="w-full bg-[#fff0ee]/20 border-2 border-[#dcc0c1] rounded-xl p-4 sm:p-5 pt-5 sm:pt-6 font-caveat text-lg sm:text-xl text-[#251916] placeholder-[#564243]/50 focus:border-[#a4384c] focus:outline-none resize-none transition-colors"
                     />
                   </div>
 
@@ -263,22 +263,22 @@ export default function ContributorPage() {
                         className="hidden"
                         accept="image/png, image/jpeg, image/webp"
                       />
-                      <div className="bg-white p-4 pb-12 shadow-xl border border-[#dcc0c1]/50 flex flex-col items-center transition-all group-hover:shadow-2xl">
+                      <div className="bg-white p-3 pb-8 sm:p-4 sm:pb-12 shadow-xl border border-[#dcc0c1]/50 flex flex-col items-center transition-all group-hover:shadow-2xl">
                         {photoPreview ? (
-                          <div className="w-60 h-60 bg-[#fff8f6] overflow-hidden relative border border-[#dcc0c1]/40">
+                          <div className="w-full max-w-[200px] sm:max-w-[240px] aspect-square bg-[#fff8f6] overflow-hidden relative border border-[#dcc0c1]/40">
                             <img src={photoPreview} alt="Upload preview" className="w-full h-full object-cover" />
                             <button
                               type="button"
                               onClick={handleRemovePhoto}
-                              className="absolute bottom-2 right-2 bg-red-600 text-white p-2 rounded-full shadow hover:bg-red-700 transition-colors cursor-pointer"
+                              className="absolute bottom-2 right-2 bg-red-600 text-white p-1.5 sm:p-2 rounded-full shadow hover:bg-red-700 transition-colors cursor-pointer"
                             >
-                              <Trash2 className="w-4 h-4" />
+                              <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                             </button>
                           </div>
                         ) : (
-                          <div className="w-60 h-60 bg-[#fff0ee]/40 border-2 border-dashed border-[#ffb2ba] flex flex-col items-center justify-center gap-3 group-hover:bg-[#e66a7d]/5 transition-colors p-4">
-                            <Camera className="w-10 h-10 text-[#a4384c]/50 group-hover:scale-110 transition-transform" />
-                            <span className="text-xs font-bold text-[#6a5b5c] text-center">Tap or Drag to pin a photo</span>
+                          <div className="w-full max-w-[200px] sm:max-w-[240px] aspect-square bg-[#fff0ee]/40 border-2 border-dashed border-[#ffb2ba] flex flex-col items-center justify-center gap-1.5 sm:gap-3 group-hover:bg-[#e66a7d]/5 transition-colors p-3 sm:p-4">
+                            <Camera className="w-8 h-8 sm:w-10 sm:h-10 text-[#a4384c]/50 group-hover:scale-110 transition-transform" />
+                            <span className="text-[10px] sm:text-xs font-bold text-[#6a5b5c] text-center">Tap or Drag to pin a photo</span>
                             <span className="text-[10px] text-gray-400">(Optional, max 5MB)</span>
                           </div>
                         )}
@@ -290,17 +290,17 @@ export default function ContributorPage() {
                     </div>
                   </div>
 
-                  <div className="flex flex-col sm:flex-row justify-between items-center pt-6 gap-6">
+                  <div className="flex flex-col sm:flex-row justify-between items-center pt-6 gap-4 sm:gap-6">
                     <div className="flex items-center gap-3 opacity-60">
-                      <div className="w-14 h-14 border-2 border-dashed border-[#a4384c]/40 rounded-full flex items-center justify-center rotate-[-12deg]">
-                        <span className="text-2xl">⭐</span>
+                      <div className="w-10 h-10 sm:w-14 sm:h-14 border-2 border-dashed border-[#a4384c]/40 rounded-full flex items-center justify-center rotate-[-12deg] shrink-0">
+                        <span className="text-lg sm:text-2xl">⭐</span>
                       </div>
                       <span className="text-xs font-bold text-[#6e5f60] italic font-sans">Priority Birthday Stamp</span>
                     </div>
                     <button
                       type="submit"
                       disabled={submitting}
-                      className="group relative px-8 py-3.5 bg-[#a4384c] text-white rounded-xl font-bold hover:bg-[#852036] disabled:bg-[#6a5b5c]/60 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
+                      className="group relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-[#a4384c] text-white rounded-xl font-bold hover:bg-[#852036] disabled:bg-[#6a5b5c]/60 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <span>{submitting ? "Tucking Away..." : "Add Memory"}</span>
                       <Send className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
@@ -320,7 +320,7 @@ export default function ContributorPage() {
                     ★ Handmade with love ★
                   </div>
                 </div>
-                <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+                <div className="mt-8 sm:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
                   <button
                     onClick={() => {
                       setSenderName("");
@@ -329,11 +329,11 @@ export default function ContributorPage() {
                       setPhotoPreview(null);
                       setSubmitSuccess(false);
                     }}
-                    className="px-6 py-2.5 border-2 border-[#a4384c] text-[#a4384c] rounded-full font-bold text-sm hover:bg-[#ffd9dc]/20 transition-all cursor-pointer"
+                    className="px-5 sm:px-6 py-2.5 border-2 border-[#a4384c] text-[#a4384c] rounded-full font-bold text-sm hover:bg-[#ffd9dc]/20 transition-all cursor-pointer"
                   >
                     Add Another Message
                   </button>
-                  <Link href="/" className="px-6 py-2.5 bg-[#a4384c] text-white rounded-full font-bold text-sm hover:bg-[#852036] transition-all text-center">
+                  <Link href="/" className="px-5 sm:px-6 py-2.5 bg-[#a4384c] text-white rounded-full font-bold text-sm hover:bg-[#852036] transition-all text-center">
                     Back to Home
                   </Link>
                 </div>
