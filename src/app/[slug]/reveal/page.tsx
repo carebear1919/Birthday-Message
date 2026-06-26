@@ -53,6 +53,19 @@ export default function RevealPage() {
     async function checkPage() {
       try {
         setCheckingPage(true);
+
+        // Check localStorage for cached unlock
+        const cached = localStorage.getItem(`hushbook-${slug}`);
+        if (cached) {
+          const data = JSON.parse(cached);
+          setMessages(data.messages);
+          setPageCount(data.messages.length * 2 + 4);
+          setCelebrantName(data.celebrant_name);
+          setAuthenticated(true);
+          setCheckingPage(false);
+          return;
+        }
+
         const name = await getCelebrantName(slug);
         if (!name) {
           setError("This birthday page doesn't exist — check your link!");
@@ -81,6 +94,10 @@ export default function RevealPage() {
       setPageCount(data.messages.length * 2 + 4);
       setCelebrantName(data.celebrant_name);
       setAuthenticated(true);
+      localStorage.setItem(`hushbook-${slug}`, JSON.stringify({
+        celebrant_name: data.celebrant_name,
+        messages: data.messages,
+      }));
     } catch (err: any) {
       setError(err.message || "Failed to unlock.");
     } finally {
@@ -428,6 +445,19 @@ export default function RevealPage() {
           </Link>
           <div className="flex items-center gap-3">
             <span className="text-xs text-[#564243] font-medium hidden sm:block">🎉 {celebrantName}&apos;s Wall</span>
+            <button
+              onClick={() => {
+                localStorage.removeItem(`hushbook-${slug}`);
+                setAuthenticated(false);
+                setPassword("");
+                setMessages([]);
+                setCurrentPage(0);
+              }}
+              className="text-xs font-bold text-[#6a5b5c] px-3 py-1.5 bg-[#f2dedf] hover:bg-[#d5c2c3] rounded-full transition-colors cursor-pointer"
+              title="Lock this scrapbook"
+            >
+              🔒 Lock
+            </button>
             <Link href="/" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium text-[#6a5b5c] hover:bg-[#a4384c]/10 transition-colors">
               <House className="w-4 h-4" />
               <span className="hidden sm:inline">Home</span>
