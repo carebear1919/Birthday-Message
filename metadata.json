@@ -1,6 +1,0 @@
-{
-  "name": "Scrapbook Birthday Wall",
-  "description": "A full-stack web app where friends can leave hidden birthday messages for a celebrant, who later unlocks them with a password and flips through them like a physical scrapbook/journal.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

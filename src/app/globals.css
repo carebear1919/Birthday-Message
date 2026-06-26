@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@400;600;700&family=Patrick+Hand&family=Permanent+Marker&display=swap');
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-caveat: "Caveat", cursive;
+  --font-patrick: "Patrick Hand", cursive;
+  --font-marker: "Permanent Marker", cursive;
+  --color-rose-soft: #f7c8d8;
+  --color-rose-deep: #a4384c;
+  --color-rose-hover: #852036;
+  --color-cream: #fff8f3;
+  --color-cream-dark: #fff0ee;
+  --color-warm-brown: #564243;
+  --color-muted: #6a5b5c;
+  --color-border-rose: #dcc0c1;
+  --color-sticker: #e66a7d;
+}
+
+body {
+  background: #fff8f6;
+  color: #251916;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+.dot-grid {
+  background-image: radial-gradient(#dcc0c1 1.2px, transparent 1.2px);
+  background-size: 20px 20px;
+}
+
+.washi-tape-primary {
+  background-color: rgba(164, 56, 76, 0.25);
+  backdrop-filter: blur(0.5px);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.washi-tape-secondary {
+  background-color: rgba(106, 91, 92, 0.15);
+  backdrop-filter: blur(0.5px);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.binder-ring {
+  background: linear-gradient(90deg, #e2e8f0 0%, #cbd5e1 50%, #94a3b8 100%);
+  box-shadow: inset -2px 0 4px rgba(0,0,0,0.1);
+}
+
+.polaroid-shadow {
+  box-shadow: 0 4px 15px rgba(93, 77, 74, 0.12);
+}
+
+.note-shadow {
+  box-shadow: 2px 2px 8px rgba(93, 77, 74, 0.08);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes scaleUp {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-fadeIn { animation: fadeIn 0.4s ease-out; }
+.animate-scaleUp { animation: scaleUp 0.4s ease-out; }
+.animate-bounce-slow { animation: bounce-slow 3s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 6s linear infinite; }

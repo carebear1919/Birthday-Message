@@ -16,14 +16,13 @@ export interface Message {
   created_at: string;
 }
 
-export interface ApiResponse<T> {
-  success: boolean;
-  data?: T;
-  error?: string;
-}
-
 export interface CreatePageResponse {
-  birthdayPage: BirthdayPage;
   friendLink: string;
   celebrantLink: string;
+  birthdayPage: BirthdayPage;
+}
+
+export interface RevealData {
+  celebrant_name: string;
+  messages: Message[];
 }
