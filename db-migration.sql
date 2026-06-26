@@ -31,6 +31,11 @@ create policy "Public can view birthday pages"
   on birthday_pages for select
   using (true);
 
+-- 4b. RLS: Public can INSERT birthday_pages (anyone can create a wall)
+create policy "Public can create birthday pages"
+  on birthday_pages for insert
+  with check (true);
+
 -- 5. RLS: Public can INSERT messages (but never SELECT them)
 create policy "Public can insert messages"
   on messages for insert

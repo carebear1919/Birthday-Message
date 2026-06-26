@@ -4,8 +4,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useParams } from "next/navigation";
 import { Lock, Unlock, ChevronLeft, ChevronRight, House } from "lucide-react";
 import Link from "next/link";
-import { getSupabaseAdmin } from "@/lib/supabase";
-import bcrypt from "bcryptjs";
+import { getCelebrantName, revealMessages } from "@/app/actions/create-page";
 import type { Message } from "@/types";
 import dynamic from "next/dynamic";
 
@@ -44,7 +43,6 @@ export default function RevealPage() {
   const [checkingPage, setCheckingPage] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [flipReady, setFlipReady] = useState(false);
   const [pageCount, setPageCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
   const [useFlip, setUseFlip] = useState(true);
@@ -55,17 +53,11 @@ export default function RevealPage() {
     async function checkPage() {
       try {
         setCheckingPage(true);
-        const supabaseAdmin = getSupabaseAdmin();
-        const { data, error: fetchError } = await supabaseAdmin
-          .from("birthday_pages")
-          .select("celebrant_name")
-          .eq("slug", slug)
-          .maybeSingle();
-
-        if (fetchError || !data) {
+        const name = await getCelebrantName(slug);
+        if (!name) {
           setError("This birthday page doesn't exist — check your link!");
         } else {
-          setCelebrantName(data.celebrant_name);
+          setCelebrantName(name);
         }
       } catch {
         setError("Error loading page.");
@@ -84,33 +76,10 @@ export default function RevealPage() {
     setError(null);
 
     try {
-      const supabaseAdmin = getSupabaseAdmin();
-      const { data: page, error: fetchError } = await supabaseAdmin
-        .from("birthday_pages")
-        .select("id, password_hash, celebrant_name")
-        .eq("slug", slug)
-        .maybeSingle();
-
-      if (fetchError || !page) {
-        throw new Error("Birthday page not found.");
-      }
-
-      const isValid = await bcrypt.compare(password, page.password_hash);
-      if (!isValid) {
-        throw new Error("Incorrect password. Please try again.");
-      }
-
-      const { data: msgs, error: msgError } = await supabaseAdmin
-        .from("messages")
-        .select("*")
-        .eq("page_id", page.id)
-        .order("created_at", { ascending: true });
-
-      if (msgError) throw new Error(msgError.message);
-
-      setMessages(msgs || []);
-      setPageCount((msgs?.length || 0) * 2 + 4);
-      setCelebrantName(page.celebrant_name);
+      const data = await revealMessages(slug, password);
+      setMessages(data.messages);
+      setPageCount(data.messages.length * 2 + 4);
+      setCelebrantName(data.celebrant_name);
       setAuthenticated(true);
     } catch (err: any) {
       setError(err.message || "Failed to unlock.");
@@ -486,7 +455,7 @@ export default function RevealPage() {
                 ))}
               </div>
 
-              {useFlip && flipReady ? (
+              {useFlip ? (
                 <FlipBook
                   ref={bookRef}
                   width={450}
@@ -504,10 +473,6 @@ export default function RevealPage() {
                 >
                   {pages}
                 </FlipBook>
-              ) : useFlip && !flipReady ? (
-                <div className="flex items-center justify-center min-h-[420px]">
-                  <div className="w-10 h-10 border-4 border-[#a4384c] border-t-transparent rounded-full animate-spin" />
-                </div>
               ) : (
                 <div className="p-4 md:p-6">
                   {pages[currentPage] || pages[0]}

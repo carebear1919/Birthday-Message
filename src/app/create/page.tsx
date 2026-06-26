@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Cake, Lock, Sparkles, Check, Copy, ArrowRight, House } from "lucide-react";
 import Link from "next/link";
-import { getSupabase } from "@/lib/supabase";
-import bcrypt from "bcryptjs";
+import { createBirthdayPage } from "@/app/actions/create-page";
 import type { CreatePageResponse } from "@/types";
 
 function generateSlug(name: string): string {
@@ -51,38 +50,24 @@ export default function CreatePage() {
     setError(null);
 
     try {
-      const supabase = getSupabase();
-      const { data: existing } = await supabase
-        .from("birthday_pages")
-        .select("slug")
-        .eq("slug", slug)
-        .maybeSingle();
-
-      if (existing) {
-        throw new Error("Link/slug is already taken. Please choose another.");
-      }
-
-      const password_hash = await bcrypt.hash(password, 10);
-
-      const { data: newPage, error: insertError } = await supabase
-        .from("birthday_pages")
-        .insert({
-          slug,
-          celebrant_name: celebrantName.trim(),
-          password_hash,
-        })
-        .select("id, slug, celebrant_name, created_at")
-        .single();
-
-      if (insertError || !newPage) {
-        throw new Error(insertError?.message || "Failed to create scrapbook page");
-      }
+      const { birthdayPage } = await createBirthdayPage(slug, celebrantName, password);
 
       setSuccessData({
-        birthdayPage: newPage,
+        birthdayPage,
         friendLink: `/${slug}`,
         celebrantLink: `/${slug}/reveal`,
       });
+
+      const saved = JSON.parse(localStorage.getItem("scrapbook-walls") || "[]");
+      saved.unshift({
+        celebrantName: celebrantName.trim(),
+        slug,
+        friendLink: `/${slug}`,
+        celebrantLink: `/${slug}/reveal`,
+        password,
+        createdAt: new Date().toISOString(),
+      });
+      localStorage.setItem("scrapbook-walls", JSON.stringify(saved.slice(0, 20)));
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.");
     } finally {
