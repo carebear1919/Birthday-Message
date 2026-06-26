@@ -424,7 +424,7 @@ export default function RevealPage() {
         <div className="max-w-6xl mx-auto px-4 md:px-8 py-3 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2 group cursor-pointer">
             <span className="text-2xl">💝</span>
-            <span className="font-sans font-bold text-xl italic text-[#a4384c] tracking-tight hidden sm:inline">Scrapbooker</span>
+            <span className="font-sans font-bold text-xl italic text-[#a4384c] tracking-tight hidden sm:inline">HushBook</span>
           </Link>
           <div className="flex items-center gap-3">
             <span className="text-xs text-[#564243] font-medium hidden sm:block">🎉 {celebrantName}&apos;s Wall</span>

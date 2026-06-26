@@ -181,7 +181,7 @@ export default function ContributorPage() {
         <div className="max-w-6xl mx-auto px-4 md:px-8 py-3 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2 group cursor-pointer">
             <span className="text-2xl">💝</span>
-            <span className="font-sans font-bold text-xl italic text-[#a4384c] tracking-tight hidden sm:inline">Scrapbooker</span>
+            <span className="font-sans font-bold text-xl italic text-[#a4384c] tracking-tight hidden sm:inline">HushBook</span>
           </Link>
           <div className="flex items-center gap-3">
             <Link href="/" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium text-[#6a5b5c] hover:bg-[#a4384c]/10 transition-colors">
@@ -342,7 +342,7 @@ export default function ContributorPage() {
           </section>
 
           <div className="mt-8 text-center text-[#6e5f60] text-xs">
-            <p className="uppercase tracking-widest text-[10px]">© 2026 Scrapbooker • Keep memories warm</p>
+            <p className="uppercase tracking-widest text-[10px]">© 2026 HushBook • Keep memories warm</p>
           </div>
         </div>
       </main>

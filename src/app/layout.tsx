@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Scrapbook Birthday Wall",
+  title: "HushBook — Secret Birthday Scrapbooks",
   description: "Handcrafted digital scrapbooks for birthday memories — leave hidden messages and flip through them like a real journal.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

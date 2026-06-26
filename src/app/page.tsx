@@ -69,7 +69,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-4 md:px-8 py-3 flex justify-between items-center">
           <div className="flex items-center gap-2">
             <Sparkles className="w-6 h-6 text-[#a4384c]" />
-            <span className="font-sans font-bold text-xl italic text-[#a4384c] tracking-tight">Scrapbooker</span>
+            <span className="font-sans font-bold text-xl italic text-[#a4384c] tracking-tight">HushBook</span>
           </div>
           <Link
             href="/create"
@@ -89,7 +89,7 @@ export default function HomePage() {
               💝
             </div>
             <h1 className="font-sans text-4xl md:text-5xl font-bold text-[#a4384c] tracking-tight">
-              Scrapbook Birthday Wall
+              HushBook <span className="hidden sm:inline">— Secret Birthday Scrapbooks</span>
             </h1>
             <p className="font-caveat text-2xl text-[#6e5f60] mt-2">
               &ldquo;Handcrafted memories that live forever in a digital notebook&rdquo;
